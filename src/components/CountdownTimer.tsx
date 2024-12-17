@@ -4,7 +4,20 @@ import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 
 const CountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(null);
+  interface TimeLeft {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }
+
+  interface FlipCardProps {
+    number: number;
+    label: string;
+    flipping: boolean;
+  }
+
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const [isComplete, setIsComplete] = useState(false);
   const [flipping, setFlipping] = useState({
     days: false,
@@ -62,7 +75,7 @@ const CountdownTimer = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
-      const distance = TARGET_DATE - now;
+      const distance = TARGET_DATE.getTime() - now;
       
       if (distance < 0) {
         setIsComplete(true);
@@ -92,8 +105,8 @@ const CountdownTimer = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const FlipCard = ({ number, label, flipping }) => {
-    const formatNumber = (num) => String(num).padStart(2, '0');
+  const FlipCard:React.FC<FlipCardProps> = ({ number, label, flipping }) => {
+    const formatNumber = (num: number) => String(num).padStart(2, '0');
     
     return (
       <div className="flex flex-col items-center mx-2">
