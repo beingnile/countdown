@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Can't wait!!",
   description: "Counting down the moments until we meet",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
