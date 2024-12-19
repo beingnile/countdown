@@ -22,8 +22,16 @@ const CountdownTimer = () => {
   });
   
   // Set start and target dates
-  const START_DATE = new Date(2024, 11, 17, 13, 0, 0); // December 17, 2024, 13:00
+  const START_DATE = new Date(2024, 11, 17, 0, 0, 0); // December 17, 2024, 00:00
   const TARGET_DATE = new Date(2025, 0, 7, 13, 0, 0); // January 7, 2025, 13:00
+  
+  // Calculate the day index manually based on current date
+  const calculateDayIndex = () => {
+    const today = new Date();
+    const diffTime = today.getTime() - START_DATE.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
 
   const challenges = [
     "Write a poem about your favorite memory together",
@@ -76,11 +84,9 @@ const CountdownTimer = () => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = TARGET_DATE.getTime() - now;
-      const elapsed = now - START_DATE.getTime();
-      
-      // Calculate current day (0-based index)
-      const currentDayIndex = Math.floor(elapsed / (1000 * 60 * 60 * 24));
-      setCurrentDay(currentDayIndex);
+      // Update current day index
+      const dayIndex = calculateDayIndex();
+      setCurrentDay(dayIndex);
       
       if (distance < 0) {
         clearInterval(timer);
