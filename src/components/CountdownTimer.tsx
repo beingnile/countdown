@@ -13,6 +13,7 @@ const CountdownTimer = () => {
   }
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+  const [currentDay, setCurrentDay] = useState<number>(0);
   const [flipping, setFlipping] = useState({
     days: false,
     hours: false,
@@ -20,9 +21,9 @@ const CountdownTimer = () => {
     seconds: false
   });
   
-  const TARGET_DATE = new Date();
-  TARGET_DATE.setFullYear(2025, 0, 7);
-  TARGET_DATE.setHours(13, 0, 0, 0);
+  // Set start and target dates
+  const START_DATE = new Date(2024, 11, 17, 13, 0, 0); // December 17, 2024, 13:00
+  const TARGET_DATE = new Date(2025, 0, 7, 13, 0, 0); // January 7, 2025, 13:00
 
   const challenges = [
     "Write a poem about your favorite memory together",
@@ -55,14 +56,14 @@ const CountdownTimer = () => {
     "You must be jelly, cause jam doesn't shake like that. 🌸",
     "You're the reason I believe in magic ✨",
     "Your laugh is my favorite sound 🎵",
-    "You’re so gorgeous they need a new word for gorgeous. 🫠",
+    "You're so gorgeous they need a new word for gorgeous. 🫠",
     "Being with you feels like home 🏡",
     "Even in zero gravity, I would still fall for you! 📡",
     "Your presence makes everything better 🌟",
     "You're my favorite notification 📱",
     "You're the best part of my every day 🌅",
     "Your heart is pure gold 💝",
-    "You know I can’t get enough of you, right? 🌠",
+    "You know I can't get enough of you, right? 🌠",
     "You make my heart smile 😊",
     "You're the reason I look forward to tomorrow 🌅",
     "Your love makes life beautiful 🌸",
@@ -75,6 +76,11 @@ const CountdownTimer = () => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = TARGET_DATE.getTime() - now;
+      const elapsed = now - START_DATE.getTime();
+      
+      // Calculate current day (0-based index)
+      const currentDayIndex = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      setCurrentDay(currentDayIndex);
       
       if (distance < 0) {
         clearInterval(timer);
@@ -110,6 +116,10 @@ const CountdownTimer = () => {
   const countdownStyle = (value: number | undefined) => ({
     '--value': value
   } as React.CSSProperties);
+
+  // Get current challenge and compliment based on the current day
+  const currentChallenge = challenges[Math.min(currentDay, challenges.length - 1)];
+  const currentCompliment = compliments[Math.min(currentDay, compliments.length - 1)];
 
   return (
     <div className="min-h-screen text-center flex items-center bg-gradient-to-b from-purple-50 to-white p-8">
@@ -150,12 +160,12 @@ const CountdownTimer = () => {
 
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6 transform transition-all hover:scale-105">
           <h2 className="text-xl font-semibold text-purple-600 mb-4">Today's Challenge 💝</h2>
-          <p className="text-gray-700">{challenges[18 - timeLeft.days] || challenges[0]}</p>
+          <p className="text-gray-700">{currentChallenge}</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-6 transform transition-all hover:scale-105">
           <h2 className="text-xl font-semibold text-purple-600 mb-4">Cheesy, I know, but...</h2>
-          <p className="text-gray-700 italic">{compliments[18 - timeLeft.days] || compliments[0]}</p>
+          <p className="text-gray-700 italic">{currentCompliment}</p>
         </div>
       </div>
     </div>
