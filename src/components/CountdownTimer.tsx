@@ -44,16 +44,17 @@ const CountdownTimer = () => {
     "Share what you'd like him to do to you when you meet",
     "Point out the cringiest thing he does that makes you smile",
     "List 3 qualities that make him unique",
-    "Write about the moment you knew he was special",
+    "Write down three things you've always wanted to say to me during sex and send them",
+    "Look up a naughty word in another language and teach it to me",
     "Share your favorite inside joke",
     "Plan a virtual movie date",
-    "What's the dirtiest thing you'd like to hear me say during sex?",
-    "Create a playlist of songs that tell your story",
-    "Write about your perfect day together",
-    "Share your favorite memory of his laugh",
-    "List reasons why he inspires you",
-    "Write about what you're looking forward to doing together",
-    "Share what makes him beautiful inside and out"
+    "Flirt with me using only emojis",
+    "Record yourself moaning my name",
+    "Describe your idea of our perfect day together",
+    "Send me a picture of you in your sexiest underwear",
+    "Have you ever faked an orgasm? If so, with whom?",
+    "What's the most adventurous place you've had sex?",
+    "How do you feel about role-playing in bed?"
   ];
 
   const compliments = [
